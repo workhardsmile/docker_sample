@@ -1,34 +1,44 @@
-nginx:
-    build: ./nginx
-    ports:
-      - "8888:80"
-    links:
-      - php
-    volumes:
-      - ~/opt:/opt
+version: "2"
 
-php:
-    build: ./php
-    ports:
-      - "9000:9000"
-    links:
-      - "mysql"
-      - "mongo"
-    volumes:
-      - ~/opt:/opt
-
-mysql:
-    build: ./mysql
-    ports:
-      - "3306:3306"
-    volumes:
-      - ~/opt/data/mysql:/var/lib/mysql
-    environment:
-      MYSQL_ROOT_PASSWORD: 123456
-
-mongo:
-    build: ./mongo
-    ports:
-      - "27017:27017"
-    volumes:
-      - ~/opt/data/mongo:/data/db
+services:
+  nginx:
+      container_name: nginx
+      build:
+        context: ./nginx
+        dockerfile: Dockerfile
+      ports:
+        - "8888:80"
+      links:
+        - php
+      volumes:
+        - ~/opt:/opt  
+  php:
+      container_name: php
+      build:
+        context: ./php
+        dockerfile: Dockerfile
+        args:
+          fpmversion: 7.1-fpm
+      ports:
+        - "9000"
+      links:
+        - "mysql"
+        - "mongo"
+      volumes:
+        - ~/opt:/opt 
+  mysql:
+      container_name: mysql
+      build: ./mysql
+      ports:
+        - "3306:3306"
+      volumes:
+        - ~/opt/data/mysql:/var/lib/mysql
+      environment:
+        MYSQL_ROOT_PASSWORD: 123456 
+  mongo:
+      container_name: mongo
+      image: daocloud.io/library/mongo:3.4
+      ports:
+        - "27017:27017"
+      volumes:
+        - ~/opt/data/mongo:/data/db

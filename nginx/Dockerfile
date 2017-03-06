@@ -1,5 +1,6 @@
 FROM daocloud.io/nginx:1.9.0
 
+MAINTAINER  Frank Wu "gang.wu@istuary.com"
 ADD  sources.list /etc/apt/sources.list
 ADD  nginx.conf   /etc/nginx/nginx.conf
 ADD  sites-enabled/*   /etc/nginx/conf.d/

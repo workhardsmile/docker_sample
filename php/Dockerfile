@@ -1,5 +1,8 @@
 FROM daocloud.io/php:7.1-fpm
 
+MAINTAINER  Frank Wu "gang.wu@istuary.com"
+ARG fpmversion
+RUN echo $fpmversion
 # Install env
 ADD sources.list   /etc/apt/sources.list
 #RUN add-apt-repository -y ppa:ondrej/php
