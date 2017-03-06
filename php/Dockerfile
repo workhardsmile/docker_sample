@@ -34,6 +34,7 @@ ADD php-fpm.conf    /usr/local/etc/php-fpm.conf
 # Composer
 ADD composer.phar /usr/local/bin/composer
 RUN chmod 755 /usr/local/bin/composer
+RUN /usr/local/bin/composer config -g repo.packagist composer https://packagist.phpcomposer.com
 
 WORKDIR /opt/htdocs/covision
 
