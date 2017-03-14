@@ -1,3 +1,7 @@
+/php_nginx/covision
+/data
 /.idea
 /.git
 *.tgz
+.project
+sources.list

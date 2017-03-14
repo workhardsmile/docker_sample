@@ -3,9 +3,8 @@ version: "2"
 services:
   mysql:
       container_name: mysql
-      build:
-        context: ./mysql
-        dockerfile: Dockerfile
+      image: 192.168.29.158:5000/lnmp-mysql-alpine:latest
+      #image: 192.168.29.158:5000/lnmp-mysql-jessie:latest
       ports:
         - "3307:3306"
       volumes:
@@ -14,23 +13,20 @@ services:
         MYSQL_ROOT_PASSWORD: 111111
   mongo:
       container_name: mongo
-      build:
-        context: ./mongo
-        dockerfile: Dockerfile
+      image: 192.168.29.158:5000/lnmp-mongo-alpine:latest
       ports:
         - "27017:27017"
       volumes:
         - ./data/mongo:/data/db
   php_nginx:
       container_name: php_nginx
-      build:
-        context: ./php_nginx
-        dockerfile: Dockerfile
-        #args: home: /Users/frankwu
+      image: 192.168.29.158:5000/lnmp-php-nginx-alpine:latest
       ports:
         - "80:80"
       links:
         - "mysql"
         - "mongo"
+      #volumes_from:
+      #  - mongo
       volumes:
         - ./data/php_nginx/log:/data/web/log
